@@ -48,4 +48,23 @@ function createFeatures(earthquakeData, plateData) {
             opacity: 1,
             fillOpacity: 0.8
         };
-    }}
+    }
+    // Create a GeoJSON layer containing the features array on the earthquakeData object
+    // Run the handleFeature function once for each piece of data in the array
+    var earthquakes = L.geoJSON(earthquakeData, {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, getGeoJsonMarkerOptions(feature));
+        },  
+        onEachFeature: handleFeature
+    });
+    
+    var plates = L.geoJSON(plateData, {
+    style: function (feature) {
+        var latlngs = (feature.geometry.coordinates);
+        return L.polyline(latlngs, {color: 'red'});
+        }
+    });
+
+    // Sending our earthquakes layer to the createMap function
+    createMap(earthquakes, plates);
+}

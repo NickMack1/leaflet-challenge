@@ -48,4 +48,4 @@ function createFeatures(earthquakeData, plateData) {
             opacity: 1,
             fillOpacity: 0.8
         };
-    }
+    }}
